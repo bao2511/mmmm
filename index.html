@@ -9,15 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pink-light: #ffd1dc;
-            --pink-medium: #ff758f;
-            --pink-deep: #ff4d6d;
             --pink-dark: #c9184a;
-            --glass-bg: rgba(255, 182, 193, 0.35);
             --glass-card: rgba(255, 255, 255, 0.45);
             --glass-border: rgba(255, 255, 255, 0.65);
             --glass-shadow: 0 30px 60px rgba(201, 24, 74, 0.25);
-            --ios-font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            --ios-font: 'Plus Jakarta Sans', -apple-system, sans-serif;
         }
 
         * {
@@ -40,7 +36,6 @@
             background: #ffb3c1;
         }
 
-        /* Nền động chuyển màu Gradient iOS */
         .animated-bg {
             position: absolute;
             top: 0;
@@ -59,7 +54,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Đốm sáng thủy tinh di chuyển phía sau (Blobs) */
         .blob {
             position: absolute;
             border-radius: 50%;
@@ -69,29 +63,14 @@
             animation: floatBlob 10s ease-in-out infinite alternate;
         }
 
-        .blob-1 {
-            width: 280px;
-            height: 280px;
-            background: #ff4d6d;
-            top: 10%;
-            left: 10%;
-        }
-
-        .blob-2 {
-            width: 320px;
-            height: 320px;
-            background: #ff85a1;
-            bottom: 10%;
-            right: 10%;
-            animation-delay: -5s;
-        }
+        .blob-1 { width: 280px; height: 280px; background: #ff4d6d; top: 10%; left: 10%; }
+        .blob-2 { width: 320px; height: 320px; background: #ff85a1; bottom: 10%; right: 10%; animation-delay: -5s; }
 
         @keyframes floatBlob {
             0% { transform: translate(0, 0) scale(1); }
             100% { transform: translate(50px, 40px) scale(1.15); }
         }
 
-        /* Canvas vẽ hiệu ứng bong bóng lung linh */
         #particleCanvas {
             position: absolute;
             top: 0;
@@ -102,7 +81,6 @@
             pointer-events: none;
         }
 
-        /* Khung chính phong cách iOS Liquid Glassmorphism */
         .glass-card {
             position: relative;
             z-index: 10;
@@ -120,17 +98,10 @@
         }
 
         @keyframes iosPopIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.85) translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            0% { opacity: 0; transform: scale(0.85) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* Biểu tượng quà tặng phát sáng */
         .icon-wrapper {
             width: 72px;
             height: 72px;
@@ -141,23 +112,28 @@
             justify-content: center;
             align-items: center;
             font-size: 36px;
-            box-shadow: 0 12px 24px rgba(255, 77, 109, 0.4), inset 0 2px 2px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 12px 24px rgba(255, 77, 109, 0.4);
             animation: pulseIcon 2s ease-in-out infinite;
         }
 
-        @keyframes pulseIcon {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+        .gift-box-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            animation: giftBounce 1.2s ease-in-out infinite alternate;
         }
 
-        /* Bảng thông báo hướng dẫn phía trên các nút */
+        @keyframes giftBounce {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-15px) scale(1.1); }
+        }
+
         .instruction-box {
             background: rgba(255, 255, 255, 0.55);
             border-radius: 20px;
             padding: 18px 16px;
             margin-bottom: 28px;
             border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.9), 0 4px 15px rgba(201, 24, 74, 0.08);
         }
 
         .instruction-title {
@@ -173,17 +149,14 @@
             color: #590d22;
             font-size: 17px;
             font-weight: 600;
-            line-height: 1.4;
         }
 
-        /* Khung chứa các nút bấm */
         .button-group {
             display: flex;
             gap: 14px;
             justify-content: center;
         }
 
-        /* Nút bấm phong cách Liquid Glass iOS */
         .ios-btn {
             flex: 1;
             padding: 16px 20px;
@@ -193,39 +166,23 @@
             border-radius: 20px;
             border: none;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
             outline: none;
         }
 
-        /* Nút Tiếp Tục (Hồng đậm phát sáng) */
         .btn-continue {
             background: linear-gradient(135deg, #ff4d6d 0%, #c9184a 100%);
             color: #ffffff;
-            box-shadow: 0 10px 20px rgba(201, 24, 74, 0.35), inset 0 2px 2px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 20px rgba(201, 24, 74, 0.35);
         }
 
-        .btn-continue:active {
-            transform: scale(0.94);
-            box-shadow: 0 4px 10px rgba(201, 24, 74, 0.2);
-        }
-
-        /* Nút Thoát (Thủy tinh trong suốt) */
         .btn-exit {
             background: rgba(255, 255, 255, 0.6);
             color: var(--pink-dark);
             border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
         }
 
-        .btn-exit:active {
-            transform: scale(0.94);
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        /* Vùng nội dung sẽ xuất hiện sau khi nhấn nút */
-        #surpriseScreen {
+        /* Màn hình Troll */
+        #trollScreen {
             display: none;
             position: fixed;
             top: 0;
@@ -233,31 +190,55 @@
             width: 100vw;
             height: 100vh;
             background: #000;
-            z-index: 100;
-            animation: fadeIn 0.4s ease forwards;
+            z-index: 999;
+            overflow: hidden;
         }
 
-        /* Hiệu ứng nhấp nháy chớp tắt cực nhanh */
-        .flash-effect {
-            animation: flashAnimation 0.1s linear infinite;
-        }
-
-        @keyframes flashAnimation {
-            0% { opacity: 1; }
-            50% { opacity: 0.1; }
-            100% { opacity: 1; }
-        }
-
-        #img1, #img2 {
+        /* GIF 1 Nháy Đủ Màu */
+        .color-flash {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: rainbowFlash 0.08s linear infinite;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes rainbowFlash {
+            0% { filter: hue-rotate(0deg) invert(0); opacity: 1; }
+            25% { filter: hue-rotate(90deg) invert(0.8); opacity: 0.3; }
+            50% { filter: hue-rotate(180deg) invert(0); opacity: 1; }
+            75% { filter: hue-rotate(270deg) invert(0.8); opacity: 0.3; }
+            100% { filter: hue-rotate(360deg) invert(0); opacity: 1; }
+        }
+
+        /* Ảnh Chó Phóng To Thu Nhỏ Vĩnh Viễn */
+        .dog-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            max-height: 80%;
+            z-index: 1000;
+            animation: dogPulse 0.15s ease-in-out infinite alternate;
+        }
+
+        @keyframes dogPulse {
+            0% { transform: translate(-50%, -50%) scale(0.2); }
+            100% { transform: translate(-50%, -50%) scale(2.2); }
+        }
+
+        /* Hiệu ứng nổ giật mình ban đầu */
+        .jumpscare-shock {
+            animation: shockZoom 0.2s cubic-bezier(0.1, 0.9, 0.2, 1) forwards, dogPulse 0.15s ease-in-out infinite alternate 0.2s;
+        }
+
+        @keyframes shockZoom {
+            0% { transform: translate(-50%, -50%) scale(0.01); }
+            50% { transform: translate(-50%, -50%) scale(4); }
+            100% { transform: translate(-50%, -50%) scale(1); }
         }
     </style>
 </head>
@@ -266,59 +247,58 @@
     <div class="animated-bg"></div>
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
-
     <canvas id="particleCanvas"></canvas>
 
-    <div class="glass-card">
-        <div class="icon-wrapper">
-            🎁
-        </div>
-
+    <!-- Màn 1: Xác nhận -->
+    <div id="step1" class="glass-card">
+        <div class="icon-wrapper">✨</div>
         <div class="instruction-box">
             <div class="instruction-title">Xác Nhận</div>
             <div class="instruction-text">Bạn có muốn tiếp tục khám phá điều bất ngờ không?</div>
         </div>
-
         <div class="button-group">
-            <button class="ios-btn btn-exit" onclick="triggerAction()">Thoát</button>
-            <button class="ios-btn btn-continue" onclick="triggerAction()">Tiếp tục</button>
+            <button class="ios-btn btn-exit" onclick="goToGiftStep()">Thoát</button>
+            <button class="ios-btn btn-continue" onclick="goToGiftStep()">Tiếp tục</button>
         </div>
     </div>
 
-    <div id="surpriseScreen">
-        <img id="img1" class="flash-effect" src="http://genk.mediacdn.vn/2017/baby-giphy-3-1496376925165.gif" alt="GIF 1">
-        
-        <img id="img2" class="flash-effect" src="https://makeagif.com/i/tVlnwj" alt="GIF 2">
+    <!-- Màn 2: Trang Hộp Quà Thủy Tinh Lỏng -->
+    <div id="step2" class="glass-card" style="display: none;">
+        <div class="gift-box-icon" onclick="startTroll()">🎁</div>
+        <div class="instruction-box">
+            <div class="instruction-title">Phần Quà Bí Mật</div>
+            <div class="instruction-text">Chạm vào hộp quà để mở điều bất ngờ!</div>
+        </div>
+        <button class="ios-btn btn-continue" style="width: 100%;" onclick="startTroll()">Mở Hộp Quà</button>
+    </div>
 
-        <audio id="audioTrack" src="https://soundbible.com/grab.php?id=1548&type=mp3" preload="auto"></audio>
+    <!-- Màn 3: Troll Vĩnh Viễn -->
+    <div id="trollScreen">
+        <img class="color-flash" src="http://genk.mediacdn.vn/2017/baby-giphy-3-1496376925165.gif" alt="GIF 1">
+        <img class="dog-img jumpscare-shock" src="https://makeagif.com/i/tVlnwj" alt="Dog">
+        <audio id="audioTrack" src="https://soundbible.com/grab.php?id=1548&type=mp3" preload="auto" loop></audio>
     </div>
 
     <script>
-        // Xử lý sự kiện bấm nút
-        function triggerAction() {
-            const surprise = document.getElementById('surpriseScreen');
-            const img1 = document.getElementById('img1');
-            const img2 = document.getElementById('img2');
-            const audio = document.getElementById('audioTrack');
-            
-            // Hiện màn hình đen kinh dị
-            surprise.style.display = 'block';
+        // Chuyển sang màn Hộp quà
+        function goToGiftStep() {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+        }
 
-            // Cài đặt âm thanh phát ngay lập tức và tăng max âm lượng
+        // Bắt đầu Troll
+        function startTroll() {
+            const trollScreen = document.getElementById('trollScreen');
+            const audio = document.getElementById('audioTrack');
+
+            trollScreen.style.display = 'block';
+
+            // Phát tiếng hét tối đa âm lượng
             audio.volume = 1.0;
             audio.currentTime = 0;
-            audio.play().catch(e => console.log('Lỗi phát âm thanh:', e));
+            audio.play().catch(e => console.log(e));
 
-            // Hiển thị ảnh 1
-            img1.style.display = 'block';
-
-            // Sau 3 giây, tự động ẩn ảnh 1 và hiển thị ảnh 2
-            setTimeout(() => {
-                img1.style.display = 'none';
-                img2.style.display = 'block';
-            }, 3000);
-
-            // Bật chế độ Toàn màn hình (Fullscreen)
+            // Bật toàn màn hình
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen();
             } else if (document.documentElement.webkitRequestFullscreen) {
@@ -326,21 +306,15 @@
             }
         }
 
-        // Tạo hiệu ứng hạt bong bóng thủy tinh trôi bồng bềnh
+        // Tạo hiệu ứng hạt bong bóng thủy tinh
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
         const particles = [];
-        const particleCount = 25;
-
-        for (let i = 0; i < particleCount; i++) {
+        for (let i = 0; i < 25; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
@@ -358,14 +332,9 @@
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
                 ctx.fill();
-
                 p.y -= p.speedY;
                 p.x += p.speedX;
-
-                if (p.y < -10) {
-                    p.y = canvas.height + 10;
-                    p.x = Math.random() * canvas.width;
-                }
+                if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }
             });
             requestAnimationFrame(drawParticles);
         }
@@ -373,3 +342,4 @@
     </script>
 </body>
 </html>
+
